@@ -1,0 +1,29 @@
+<resources>
+	<string name="app_name">DataStorage</string>
+	<string name="email_hint">Email</string>
+	<string name="password_hint">Password</string>
+	<string name="login_button_text">Login</string>
+	<string name="title_activity_login">Sign in</string>
+	<string name="prompt_email">Email</string>
+	<string name="prompt_password">Password</string>
+	<string name="action_sign_in">Sign in or register</string>
+	<string name="action_sign_in_short">Sign in</string>
+	<string name="welcome">"Welcome !"</string>
+	<string name="invalid_username">Not a valid username</string>
+	<string name="invalid_password">Password must be >5 characters</string>
+	<string name="login_failed">"Login failed"</string>
+	<string name="forgot_password">Forgot your password?</string>
+	<string name="register_new_account">Not registered yet?</string>
+	<string name="confirm_email_hint">Confirm Email</string>
+	<string name="register_button_text">Sign Up</string>
+	<string name="terms_conditions_checkbox">I accept the terms and conditions</string>
+	<string name="confirm_password_hint">Confirm Password</string>
+	<string name="register_to_login_text">Already Registered? Log In</string>
+	<string name="name_hint">Name</string>
+	<string name="remember_me">Remember Me</string>
+	<string name="logo_accessible_text">Logo</string>
+	<string name="forgot_password_helper_text">Forgot your password?</string>
+	<string name="forgot_password_helper_text_extended">No problem, just enter your email below and we\'ll send you a password reset link</string>
+	<string name="reset_password_button">Reset Password</string>
+	<string name="title_activity_main">MainActivity</string>
+</resources>
