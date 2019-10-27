@@ -6,14 +6,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.klan.datastorage.db.ContactRepository;
+import com.klan.datastorage.db.ContactsDatabase;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -39,10 +38,12 @@ public class LoginActivity extends AppCompatActivity {
 
 		rememberMeSwitch = findViewById(R.id.rememberMe);
 
-		loginPreferences = getPreferences(MODE_PRIVATE);
+		loginPreferences = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
 		loginPreferencesEditor = loginPreferences.edit();
 
 		rememberMe = loginPreferences.getBoolean("rememberMe", false);
+
+
 
 		if (rememberMe) {
 			editTextEmail.setText(loginPreferences.getString("email", ""));
@@ -51,6 +52,15 @@ public class LoginActivity extends AppCompatActivity {
 
 			email = editTextEmail.getText().toString();
 			password = editTextPassword.getText().toString();
+
+			if (loginPreferences.getString("email", null).equals(email) &&
+					loginPreferences.getString("password", null).equals(password) ) {
+				loginPreferencesEditor.putBoolean("saved", true);
+			}
+			else {
+				loginPreferencesEditor.putBoolean("saved", false);
+			}
+			loginPreferencesEditor.commit();
 
 			authenticate(email, password);
 		}
@@ -62,6 +72,8 @@ public class LoginActivity extends AppCompatActivity {
 
 			email = editTextEmail.getText().toString();
 			password = editTextPassword.getText().toString();
+
+
 
 			if (rememberMeSwitch.isChecked()) {
 				loginPreferencesEditor.putBoolean("rememberMe", true);
@@ -76,21 +88,19 @@ public class LoginActivity extends AppCompatActivity {
 
 			authenticate(email, password);
 
-
-
 		}
 	}
-	private void authenticate(String username, String password) {
-		if (username == "wj" && password == "1248"){
+	private void authenticate(String email, String password) {
+		ContactRepository cr = new ContactRepository(getApplicationContext());
+		if (cr.authenticate(email, password)){
 			Intent intent = new Intent(this, HomeActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 			startActivity(intent);
 			LoginActivity.this.finish();
 		}
 		else{
-			Intent intent = new Intent(this, HomeActivity.class);
-			startActivity(intent);
-			LoginActivity.this.finish();
-			return;
+			Toast.makeText(getApplicationContext(),"Invalid Email/Passowrd", Toast.LENGTH_SHORT);
 		}
 	}
 //
